@@ -1,0 +1,16 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    level: 1
+    paths:
+        - app
+        - routes
+    excludePaths:
+        - vendor
+        - routes/console.php
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingVarTagTypehint: false
+    checkUnionTypes: false
+
