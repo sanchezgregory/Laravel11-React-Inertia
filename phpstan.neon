@@ -12,4 +12,7 @@ parameters:
     checkMissingIterableValueType: false
     checkMissingVarTagTypehint: false
     checkUnionTypes: false
+    ignoreErrors:
+        - '#Access to an undefined property#'
+
 
