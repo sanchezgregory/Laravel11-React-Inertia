@@ -10,7 +10,6 @@ parameters:
         - vendor
         - routes/console.php
     checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     checkMissingVarTagTypehint: false
     checkUnionTypes: false
 
