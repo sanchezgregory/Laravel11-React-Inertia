@@ -8,11 +8,11 @@ parameters:
         - routes
     excludePaths:
         - vendor
+        - app/Http/Resources/*
         - routes/console.php
     checkMissingIterableValueType: false
     checkMissingVarTagTypehint: false
     checkUnionTypes: false
     ignoreErrors:
-        - '#Access to an undefined property#'
 
 
