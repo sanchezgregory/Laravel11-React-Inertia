@@ -20,7 +20,7 @@ class ProjectFactory extends Factory
             'name' => $this->faker->sentence(),
             'description' => $this->faker->realText(),
             'due_date' => $this->faker->dateTimeBetween('now', '+1 year'),
-            'status' => $this->faker->randomElement(['In Progress', 'Pending', 'Completed']),
+            'status' => $this->faker->randomElement(['in_progress', 'pending', 'completed']),
             'image_path' => $this->faker->imageUrl(),
             'created_by' => $this->faker->numberBetween(1, 2),
             'updated_by' => $this->faker->numberBetween(1, 2),
