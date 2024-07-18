@@ -1,10 +1,9 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout.jsx";
-import {Head, router} from "@inertiajs/react";
+import {Head, Link, router} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination.jsx";
 import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP} from "@/constants.js";
 import SelectInput from "@/Components/SelectInput.jsx";
 import TextInput from "@/Components/TextInput.jsx";
-import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/16/solid/index.js";
 import TableHeading from "@/Components/TableHeading.jsx";
 
 export default function Index({ auth, projects, queryParams = null }) {
@@ -124,7 +123,11 @@ export default function Index({ auth, projects, queryParams = null }) {
                       <td className="px-3 py-2">
                         <img src={project.image_path} alt="" style={{width: '150px', height: '100px'}}/>
                       </td>
-                      <td className="px-3 py-2">{project.name}</td>
+                      <th className="px-3 py-2 text-white hover:underline">
+                        <Link href={route('project.show', project.id)}>
+                          {project.name}
+                        </Link>
+                      </th>
                       <td className="px-3 py-2">
                       <span
                         className={`px-3 py-2 rounded text-white ${PROJECT_STATUS_CLASS_MAP[project.status]}`}>{PROJECT_STATUS_TEXT_MAP[project.status]}
@@ -132,7 +135,7 @@ export default function Index({ auth, projects, queryParams = null }) {
                       </td>
                       <td className="px-3 py-2">{project.created_at}</td>
                       <td className="px-3 py-2 text-nowrap">{project.due_date}</td>
-                      <td className="px-3 py-2">{project.created_by.name}</td>
+                      <td className="px-3 py-2">{project.createdBy.name}</td>
                       <td className="px-3 py-2 text-align-right">
                         <a href={route('project.edit', project.id)}
                            className="text-blue-500 hover:text-blue-700 mr-1">Edit</a>
