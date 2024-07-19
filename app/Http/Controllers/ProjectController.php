@@ -34,6 +34,7 @@ class ProjectController extends Controller
         return inertia('Project/Index', [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?? null,
+            'success' => session('success'),
         ]);
     }
 
@@ -42,6 +43,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        return inertia('Project/Create');
     }
 
     /**
@@ -49,6 +51,18 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        $fields = $request->validated();
+        $fields['created_by'] = $request->user()->id;
+        $fields['updated_by'] = $request->user()->id;
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '-' . $request->user()->id;
+            $fields['image_path'] = $request->file('image')->store('images/' . $imageName, 'public');
+        }
+
+        Project::create($fields);
+
+        return to_route('project.index')->with('success', 'Project created successfully');
     }
 
     /**

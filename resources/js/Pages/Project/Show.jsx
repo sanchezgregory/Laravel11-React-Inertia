@@ -3,7 +3,8 @@ import {Head} from "@inertiajs/react";
 import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP} from "@/constants.js";
 import TasksTable from "@/Pages/Task/TasksTable.jsx";
 
-export default function Show({ auth, project, tasks, queryParams = null }) {
+export default function Show({ auth, project, tasks = null, queryParams = null }) {
+
   return (
     <>
       <Authenticated user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Project</h2>}>
@@ -67,10 +68,12 @@ export default function Show({ auth, project, tasks, queryParams = null }) {
                   </tbody>
                 </table>
               </div>
-              <div className="pl-3 pr-3 mt-7">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">Project tasks</h3>
-                <TasksTable tasks={tasks} queryParams={ queryParams } />
-              </div>
+              {tasks?.data && tasks.data.length > 0 &&
+                <div className="pl-3 pr-3 mt-7">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">Project tasks</h3>
+                  <TasksTable tasks={tasks} queryParams={ queryParams } />
+                </div>
+              }
             </div>
           </div>
         </div>
