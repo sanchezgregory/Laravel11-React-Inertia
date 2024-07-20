@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -41,6 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        return inertia('User/Create');
     }
 
     /**
@@ -48,6 +50,10 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $fields = $request->validated();
+        $fields['password'] = bcrypt($fields['password']);
+        User::create($fields);
+        return to_route('user.index')->with('success', 'User created successfully');
     }
 
     /**
@@ -62,6 +68,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        return inertia('User/Edit', [
+            'user' => new UserResource($user),
+        ]);
     }
 
     /**
@@ -69,6 +78,16 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        $fields = $request->validated();
+        $password = $fields['password'] ?? null;
+        if ($password) {
+            $fields['password'] = bcrypt($password);
+        } else {
+            unset($fields['password']);
+        }
+        $user->update($fields);
+
+        return to_route('user.index')->with('success', 'User updated successfully');
     }
 
     /**
@@ -76,5 +95,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $user->delete();
+        return to_route('user.index')->with('success', 'User deleted successfully');
     }
 }

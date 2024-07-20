@@ -1,8 +1,6 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head, Link, router} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination.jsx";
-import {USER_STATUS_CLASS_MAP, USER_STATUS_TEXT_MAP} from "@/constants.js";
-import SelectInput from "@/Components/SelectInput.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import TableHeading from "@/Components/TableHeading.jsx";
 import {useState} from "react";
@@ -103,7 +101,6 @@ export default function Index({ auth, users, queryParams = null, success = null 
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="text-nowrap">
                     <th className="px-3 py-2"></th>
-                    <th className="px-3 py-2"></th>
                     <th className="px-3 py-2">
                       <TextInput className="w-full" placeholder="User name" defaultValue={queryParams.name}
                                  onBlur={(e) => searchFieldChanged('name', e.target.value)}
@@ -114,8 +111,6 @@ export default function Index({ auth, users, queryParams = null, success = null 
                                  onBlur={(e) => searchFieldChanged('name', e.target.value)}
                                  onKeyPress={(e) => onKeyPress('name', e)}/>
                     </th>
-                    <th className="px-3 py-2"></th>
-                    <th className="px-3 py-2"></th>
                     <th className="px-3 py-2"></th>
                     <th className="px-3 py-2"></th>
                   </tr>
@@ -131,7 +126,7 @@ export default function Index({ auth, users, queryParams = null, success = null 
                           </Link>
                         </th>
                         <td className="px-3 py-2">
-                          {user.status}
+                          {user.email}
                         </td>
                         <td className="px-3 py-2">{user.created_at}</td>
                         <td className="px-3 py-2 text-align-right">
